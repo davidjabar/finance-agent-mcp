@@ -1,0 +1,90 @@
+# ==========================================
+# Python & Virtual Environments
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+.venv/
+env/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# ==========================================
+# FastAPI & Environment Variables
+# ==========================================
+# File konfigurasi rahasia (API key, Database URL, JWT Secret)
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Database lokal (misal SQLite untuk development)
+*.db
+*.sqlite3
+*.sqlite
+
+# Log & Temporary Files
+*.log
+logs/
+
+# ==========================================
+# Alembic (Database Migrations)
+# ==========================================
+# Jangan abaikan folder alembic/ atau alembic/versions/!
+# HANYA abaikan file temporer atau log alembic jika ada:
+alembic.log
+
+# ==========================================
+# Testing & Code Quality (Pytest, Coverage, Ruff, Black)
+# ==========================================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# ==========================================
+# IDE & Editors
+# ==========================================
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# PyCharm / JetBrains
+.idea/
+
+# macOS / Windows OS files
+.DS_Store
+Thumbs.db
