@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 
 from app.models.transactions import Transaction, TransactionType
 from app.schemas.transactions import TransactionCreate, TransactionUpdate
+from app.utils.datetime import to_naive
 
 
 def create_transaction(db: Session, data: TransactionCreate) -> Transaction:
@@ -19,18 +20,25 @@ def create_transaction(db: Session, data: TransactionCreate) -> Transaction:
 
 
 def get_transaction(db: Session, tx_id: uuid.UUID) -> Optional[Transaction]:
-    return db.query(Transaction).filter(Transaction.id == tx_id).first()
+    return (
+        db.query(Transaction)
+        .filter(Transaction.id == tx_id, Transaction.deleted_at.is_(None))
+        .first()
+    )
 
 
-def list_transactions(
-    db: Session,
-    telegram_user_id: int,
-    start_date: Optional[datetime] = None,
-    end_date: Optional[datetime] = None,
-    limit: int = 50,
-    offset: int = 0,
-) -> Sequence[Transaction]:
-    q = db.query(Transaction).filter(Transaction.telegram_user_id == telegram_user_id)
+def list_transactions(db: Session,telegram_user_id: int,
+                      start_date: Optional[datetime] = None,
+                      end_date: Optional[datetime] = None,
+                      limit: int = 50,
+                      offset: int = 0,) -> Sequence[Transaction]:
+
+    start_date = to_naive(start_date)
+    end_date = to_naive(end_date)
+    q = db.query(Transaction).filter(
+        Transaction.telegram_user_id == telegram_user_id,
+        Transaction.deleted_at.is_(None),
+    )
     if start_date:
         q = q.filter(Transaction.transaction_date >= start_date)
     if end_date:
@@ -50,21 +58,40 @@ def update_transaction(db: Session, tx_id: uuid.UUID, data: TransactionUpdate) -
 
 
 def delete_transaction(db: Session, tx_id: uuid.UUID) -> bool:
+    """Soft delete — row tetap ada di DB, cuma ditandai deleted_at."""
     tx = get_transaction(db, tx_id)
     if not tx:
         return False
-    db.delete(tx)
+    tx.deleted_at = datetime.utcnow()
     db.commit()
     return True
 
 
-def get_summary(
-    db: Session,
-    telegram_user_id: int,
-    start_date: Optional[datetime] = None,
-    end_date: Optional[datetime] = None,
-) -> dict:
-    q = db.query(Transaction).filter(Transaction.telegram_user_id == telegram_user_id)
+def restore_transaction(db: Session, tx_id: uuid.UUID) -> Optional[Transaction]:
+    """Optional helper buat un-delete kalau ternyata salah hapus."""
+    tx = (
+        db.query(Transaction)
+        .filter(Transaction.id == tx_id, Transaction.deleted_at.isnot(None))
+        .first()
+    )
+    if not tx:
+        return None
+    tx.deleted_at = None
+    db.commit()
+    db.refresh(tx)
+    return tx
+
+
+def get_summary(db: Session,telegram_user_id: int,
+                start_date: Optional[datetime] = None,
+                end_date: Optional[datetime] = None,) -> dict:
+    
+    start_date = to_naive(start_date)
+    end_date = to_naive(end_date)
+    q = db.query(Transaction).filter(
+        Transaction.telegram_user_id == telegram_user_id,
+        Transaction.deleted_at.is_(None),
+    )
     if start_date:
         q = q.filter(Transaction.transaction_date >= start_date)
     if end_date:

@@ -27,6 +27,7 @@ class Transaction(Base):
     transaction_date = Column(DateTime, default=datetime.utcnow, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    deleted_at = Column(DateTime, nullable=True)
 
     def __repr__(self) -> str:
         return f"<Transaction {self.type} {self.amount} - {self.category}>"
