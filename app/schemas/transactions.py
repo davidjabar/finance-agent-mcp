@@ -16,6 +16,9 @@ class TransactionBase(BaseModel):
     transaction_date: Optional[datetime] = None
 
 
+class TransactionCreateInput(TransactionBase):
+    pass
+
 class TransactionCreate(TransactionBase):
     telegram_user_id: int
 
