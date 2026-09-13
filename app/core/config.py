@@ -1,4 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from typing import Optional
+
 
 class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
@@ -10,9 +12,11 @@ class Settings(BaseSettings):
     DB_PORT: str
     DB_NAME: str
 
-    RABBITMQ_HOST: str
-    RABBITMQ_USER: str
-    RABBITMQ_PASS: str
+    RABBITMQ_HOST: Optional[str] = None
+    RABBITMQ_USER: Optional[str] = None
+    RABBITMQ_PASS: Optional[str] = None
+
+    OWNER_TELEGRAM_ID: int
 
     model_config = SettingsConfigDict(
         env_file=".env",
