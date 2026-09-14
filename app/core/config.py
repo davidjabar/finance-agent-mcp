@@ -14,6 +14,8 @@ class Settings(BaseSettings):
 
     OWNER_TELEGRAM_ID: int
 
+    TELEGRAM_BOT_TOKEN: str
+
     LLM_API_KEY: str
     LLM_BASE_URL: str = "https://api.koboillm.com/v1"
     CHAT_MODEL: str

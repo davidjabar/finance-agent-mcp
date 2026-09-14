@@ -25,3 +25,6 @@ langchain-mcp-adapters==0.3.2
 langgraph==1.2.11
 langchain-text-splitters==1.1.2
 mcp==1.30.0
+
+
+python-telegram-bot==21.9
