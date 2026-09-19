@@ -49,10 +49,10 @@ Buat file .env di direktori utama proyek, lalu isi parameter berikut:
 
 # Database Settings
 ```bash
-DB_USER=postgres
+DB_USER=db_user
 DB_PASSWORD=your_secure_password
-DB_HOST=db
-DB_PORT=5432
+DB_HOST=localhost
+DB_PORT=1234
 DB_NAME=finance_db
 
 
