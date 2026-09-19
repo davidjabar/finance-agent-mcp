@@ -76,20 +76,33 @@ docker compose up -d --build
 
 Aplikasi akan otomatis menjalankan migrasi database via Alembic saat startup dan siap digunakan!
 
-💬 Cara Penggunaan
-Setelah kontainer berjalan, buka bot kamu di Telegram dan langsung kirimkan pesan tanpa perlu perintah khusus:
+## 💡 Penggunaan
 
-Mencatat Pengeluaran:
+Setelah container berjalan, buka bot di Telegram dan langsung kirim pesan secara natural. Tidak diperlukan command khusus.
 
-"Kemarin abis beli bensin 50rb sama makan siang 35rb"
+### 🧾 Mencatat Pengeluaran
 
-Mencatat Pemasukan:
+Cukup kirim pesan seperti:
 
-"Barusaja dapet transferan katering 500ribu"
+> Kemarin abis beli bensin 50rb sama makan siang 35rb
 
-Meminta Ringkasan:
+Agent akan mengenali transaksi tersebut dan mencatatnya ke database.
 
-"Tolong totalin dong pengeluaran gue minggu ini"
+### 💰 Mencatat Pemasukan
+
+Contohnya:
+
+> Barusaja dapet transferan katering 500ribu
+
+Agent akan mengidentifikasi transaksi sebagai pemasukan dan mencatat detailnya.
+
+### 📊 Meminta Ringkasan Keuangan
+
+Kamu juga bisa meminta ringkasan menggunakan bahasa sehari-hari:
+
+> Tolong totalin dong pengeluaran gue minggu ini
+
+Agent akan mengambil data transaksi yang relevan dan memberikan ringkasan keuangan berdasarkan periode yang diminta.
 
 ## 📄 Lisensi
 Distributed under the MIT License. See LICENSE for more information.
