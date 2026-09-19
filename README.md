@@ -91,5 +91,5 @@ Meminta Ringkasan:
 
 "Tolong totalin dong pengeluaran gue minggu ini"
 
-📄 Lisensi
+## 📄 Lisensi
 Distributed under the MIT License. See LICENSE for more information.
