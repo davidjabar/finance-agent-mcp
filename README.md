@@ -42,17 +42,19 @@ Proyek ini sudah dibungkus rapi menggunakan Docker Compose, sehingga kamu hanya 
 ```bash
 git clone [https://github.com/davidjabar/finance-agent-mcp.git](https://github.com/davidjabar/finance-agent-mcp.git)
 cd finance-agent-mcp
+```
 
 ### 2. Konfigurasi Environment Variable (.env)
 Buat file .env di direktori utama proyek, lalu isi parameter berikut:
 
-Code snippet
 # Database Settings
+```bash
 DB_USER=postgres
 DB_PASSWORD=your_secure_password
 DB_HOST=db
 DB_PORT=5432
 DB_NAME=finance_db
+
 
 # Telegram Settings
 OWNER_TELEGRAM_ID=123456789  # ID Telegram kamu agar bot hanya merespons kamu
@@ -61,13 +63,17 @@ TELEGRAM_BOT_TOKEN=123456789:ABCdefGHIjklMNOpqrsTUVwxyZ  # Token dari @BotFather
 # LLM / AI Settings
 LLM_API_KEY=sk-...  # API Key OpenAI / provider terkait
 CHAT_MODEL=gpt-4o-mini  # Model yang ingin digunakan
-Catatan Keamanan: OWNER_TELEGRAM_ID memastikan orang lain tidak bisa menggunakan atau mengintervensi bot Telegram kamu.
 
-3. Jalankan Docker Compose
+# Catatan Keamanan: OWNER_TELEGRAM_ID memastikan orang lain tidak bisa menggunakan atau mengintervensi bot Telegram kamu.
+```
+
+### 3. Jalankan Docker Compose
 Jalankan perintah berikut untuk mengompilasi dan menjalankan semua layanan (database PostgreSQL dan aplikasi Finance Agent):
 
-Bash
+```bash
 docker compose up -d --build
+```
+
 Aplikasi akan otomatis menjalankan migrasi database via Alembic saat startup dan siap digunakan!
 
 💬 Cara Penggunaan
